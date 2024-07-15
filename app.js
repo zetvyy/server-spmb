@@ -3,12 +3,16 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const flash = require("connect-flash");
+const cors = require("cors");
 // import mongoose
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://0.0.0.0:27017/spmb-db");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+var responseRouter = require("./routes/response");
+var trackerRouter = require("./routes/tracker");
 
 var app = express();
 
@@ -16,7 +20,13 @@ var app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 app.use(logger("dev"));
+app.use(flash());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -24,6 +34,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/response", responseRouter);
+app.use("/tracker", trackerRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
