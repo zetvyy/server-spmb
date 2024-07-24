@@ -7,7 +7,9 @@ const flash = require("connect-flash");
 const cors = require("cors");
 // import mongoose
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://0.0.0.0:27017/spmb-db");
+mongoose.connect(
+  "mongodb+srv://athallahzaidandev:Idan123@cluster0.njiqqzk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+);
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");

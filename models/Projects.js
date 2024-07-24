@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const projectsSchema = mongoose.Schema({
   imageUrl: {
     type: String,
-    required: true,
   },
   nama: {
     type: String,

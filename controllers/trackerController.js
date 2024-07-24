@@ -97,7 +97,7 @@ module.exports = {
       const decoded = jwt.verify(refreshToken, REFRESH_SECRET);
       const userId = decoded.id;
 
-      const project = await Projects.findOne({ userId: userId });
+      const project = await Projects.find({ userId: userId });
       if (project) {
         return response(200, project, "Fetching Data berhasil", res);
       } else {
@@ -109,24 +109,28 @@ module.exports = {
   },
 
   addProjects: async (req, res) => {
-    const { imageUrl, nama, deskripsi, refreshToken } = req.body;
+    const { imageUrl, nama, deskripsi } = req.body;
 
-    if (!refreshToken) {
+    const authHeader = req.headers["authorization"]; // Mendapatkan header Authorization
+
+    if (!authHeader) {
       return response(400, null, "Token tidak disediakan", res);
     }
+
+    const refreshToken = authHeader.split(" ")[1]; // Mengambil token dari header
 
     try {
       const decoded = jwt.verify(refreshToken, REFRESH_SECRET);
       const userId = decoded.id;
 
-      const dataProject = await Projects.create({
+      const dataProjects = await Projects.create({
         imageUrl: imageUrl,
         nama: nama,
         deskripsi: deskripsi,
         userId: userId,
       });
 
-      response(200, dataProject, "Berhasil menambahkan data project", res);
+      response(200, dataProjects, "Berhasil menambahkan data project", res);
     } catch (error) {
       response(500, console.log(error), "gagal menambahkan data project", res);
     }
@@ -145,7 +149,7 @@ module.exports = {
       const decoded = jwt.verify(refreshToken, REFRESH_SECRET);
       const userId = decoded.id;
 
-      const topic = await Topic.findOne({ userId: userId });
+      const topic = await Topic.find({ userId: userId });
       if (topic) {
         return response(200, topic, "Fetching Data berhasil", res);
       } else {
@@ -157,11 +161,15 @@ module.exports = {
   },
 
   addTopic: async (req, res) => {
-    const { topikPembelajaran, refreshToken } = req.body;
+    const { topikPembelajaran } = req.body;
 
-    if (!refreshToken) {
+    const authHeader = req.headers["authorization"]; // Mendapatkan header Authorization
+
+    if (!authHeader) {
       return response(400, null, "Token tidak disediakan", res);
     }
+
+    const refreshToken = authHeader.split(" ")[1]; // Mengambil token dari header
 
     try {
       const decoded = jwt.verify(refreshToken, REFRESH_SECRET);
