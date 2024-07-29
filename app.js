@@ -17,6 +17,7 @@ var responseRouter = require("./routes/response");
 var trackerRouter = require("./routes/tracker");
 
 var app = express();
+app.options("*", cors()); // Enable pre-flight requests for all routes
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
