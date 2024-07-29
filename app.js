@@ -10,6 +10,7 @@ const mongoose = require("mongoose");
 mongoose.connect(
   "mongodb+srv://athallahzaidandev:Idan123@cluster0.njiqqzk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 );
+const port = process.env.PORT || 8000
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -56,8 +57,8 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-app.listen(8000, function () {
-  console.log("info", "Server is running at port : " + 8000);
+app.listen(port, function () {
+  console.log("info", "Server is running at port : " + port);
 });
 
 module.exports = app;
