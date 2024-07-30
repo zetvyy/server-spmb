@@ -8,9 +8,10 @@ const cors = require("cors");
 // import mongoose
 const mongoose = require("mongoose");
 mongoose.connect(
-  "mongodb+srv://athallahzaidandev:Idan123@cluster0.njiqqzk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  process.env.MONGO_URL ||
+    "mongodb+srv://athallahzaidandev:Idan123@cluster0.njiqqzk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 );
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 8000;
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
