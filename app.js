@@ -7,9 +7,14 @@ const flash = require("connect-flash");
 const cors = require("cors");
 // import mongoose
 const mongoose = require("mongoose");
-mongoose.connect(
-  "mongodb+srv://athallahzaidandev:Idan123@cluster0.njiqqzk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-);
+const url =
+  "mongodb+srv://athallahzaidandev:Idan123@cluster0.njiqqzk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+mongoose
+  .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error("MongoDB connection error:", err));
+
 const port = process.env.PORT || 8000;
 
 var indexRouter = require("./routes/index");
