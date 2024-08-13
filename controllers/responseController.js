@@ -22,8 +22,9 @@ module.exports = {
       client = await MongoClient.connect(mongoURL);
       const db = client.db(dbName);
       const collection = db.collection("response"); // Ganti dengan nama koleksi Anda
+      const emailUser = localSotrage.getItem("email");
 
-      const formResponse = await collection.find().toArray();
+      const formResponse = await collection.findOne({ email: emailUser });
       response(200, formResponse, "Get Form Response Tes Minat berhasil", res);
     } catch (error) {
       console.error("Error in getDataTest:", error);

@@ -92,6 +92,7 @@ module.exports = {
           "Login Successfully",
           res
         );
+        localStorage.setItem("email", email);
       }
     } catch (error) {
       response(500, "invalid", "Login Failed", res);
